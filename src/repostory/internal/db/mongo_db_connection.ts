@@ -1,4 +1,4 @@
-import {Db, MongoClient} from "mongodb";
+import { Db, MongoClient } from "mongodb"
 
 export class MongoDbConnection {
     private static instance: MongoDbConnection
@@ -23,9 +23,9 @@ export class MongoDbConnection {
     dbName: string
 
     constructor() {
-        this.url = 'mongodb://localhost:27017';
-        this.client = new MongoClient(this.url);
-        this.dbName = "test";
+        this.url = 'mongodb://localhost:27017'
+        this.client = new MongoClient(this.url)
+        this.dbName = "test"
     }
 
     private async connect() {

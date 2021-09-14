@@ -1,7 +1,7 @@
-import {MongoDbConnection} from "../db/mongo_db_connection";
-import {WatchlistRepository} from "../../public/watchlist/watchlist_repository";
-import {Watchlist} from "../../../model/domain/watchlist";
-import {Symbol} from "../../../model/domain/symbol";
+import { MongoDbConnection } from "../db/mongo_db_connection";
+import { WatchlistRepository } from "../../public/watchlist/watchlist_repository";
+import { Watchlist } from "../../../model/domain/watchlist";
+import { Symbol } from "../../../model/domain/symbol";
 
 export class WatchlistRepositoryImpl implements WatchlistRepository {
     getWatchlist(): Promise<Watchlist> {

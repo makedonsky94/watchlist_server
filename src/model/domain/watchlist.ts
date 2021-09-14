@@ -1,5 +1,5 @@
-import {Document} from 'bson'
-import {Symbol} from './symbol'
+import { Document } from 'bson'
+import { Symbol } from './symbol'
 
 export class Watchlist implements Document {
     name: string

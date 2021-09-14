@@ -1,4 +1,4 @@
-import TimePoint = TradingView.TimePoint;
+import { TimePoint } from '../../../model/domain/time_point'
 
 interface HistoryRepository {
     getHistory(symbol: Symbol): Array<TimePoint>
