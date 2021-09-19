@@ -1,6 +1,4 @@
-import {Document} from "bson";
-
-export class Symbol implements Document {
+export class Symbol {
     shortName: string
     fullName: string
     description: string

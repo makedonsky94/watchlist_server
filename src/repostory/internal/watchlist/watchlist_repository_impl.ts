@@ -1,17 +1,17 @@
-import { MongoDbConnection } from "../db/mongo_db_connection";
 import { WatchlistRepository } from "../../public/watchlist/watchlist_repository";
 import { Watchlist } from "../../../model/domain/watchlist";
-import { Symbol } from "../../../model/domain/symbol";
+import { WatchlistEntity } from "../db/entity/watchlist_entity";
 
 export class WatchlistRepositoryImpl implements WatchlistRepository {
-    getWatchlist(): Promise<Watchlist> {
-        return MongoDbConnection.getInstance().then((connection) => {
-            const db = connection.db()
-            const collection = db.collection<Symbol>("symbols")
-            return collection.find().toArray().then((symbols) => {
-                console.log(symbols)
-                return new Watchlist("Watchlist", symbols)
-            })
+    getWatchlist(): Promise<Watchlist | null> {
+        return WatchlistEntity.findOne().then((watchlistEntity) => {
+            if (watchlistEntity == null) {
+                return null
+            }
+            return new Watchlist(
+                watchlistEntity.name,
+                JSON.parse(watchlistEntity.symbolsArray)
+            )
         })
     }
 }

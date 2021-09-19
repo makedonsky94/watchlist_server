@@ -1,11 +1,10 @@
-import { Document } from 'bson'
 import { Symbol } from './symbol'
 
-export class Watchlist implements Document {
+export class Watchlist {
     name: string
-    symbols: Array<Symbol>
+    symbols: string[]
 
-    constructor(name: string, symbols: Array<Symbol>) {
+    constructor(name: string, symbols: string[]) {
         this.name = name;
         this.symbols = symbols;
     }
