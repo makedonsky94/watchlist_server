@@ -12,9 +12,9 @@ import * as path from 'path'
 
 if (sslConfig.ssl) {
   let options = {
-    key: fs.readFileSync(path.resolve(sslConfig.ssl.key)),
-    cert: fs.readFileSync(path.resolve(sslConfig.ssl.cert)),
-    ca: fs.readFileSync(path.resolve(sslConfig.ssl.ca))
+    key: fs.readFileSync(path.resolve(sslConfig.path.key)),
+    cert: fs.readFileSync(path.resolve(sslConfig.path.cert)),
+    ca: fs.readFileSync(path.resolve(sslConfig.path.ca))
   }
 
   const server = https.createServer(options, app)
