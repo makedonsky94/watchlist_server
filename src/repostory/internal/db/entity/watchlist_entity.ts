@@ -7,6 +7,7 @@ interface WatchlistAttributes {
 }
 
 export class WatchlistEntity extends Model<WatchlistAttributes> {
+    public readonly id!: number
     public name!: string
     public symbolsArray!: string
 

@@ -1,5 +1,6 @@
 import { Watchlist } from "../../../model/domain/watchlist";
 
 export interface WatchlistRepository {
-    getWatchlist(): Promise<Watchlist | null>
+    getAll(): Promise<Watchlist[]>
+    getById(id: number): Promise<Watchlist | null>
 }
