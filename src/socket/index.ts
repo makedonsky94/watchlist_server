@@ -2,7 +2,11 @@ import WebSocket from 'ws';
 
 
 export function configureSocket(wsServer: WebSocket.Server) {
-    console.log('Start listening of web socket')
+    console.log('Configuration of websocket')
+
+    wsServer.on('listening', function(client: WebSocket) {
+        console.log('Start listening of web socket')
+    })
 
     wsServer.on('connection', function(client: WebSocket) {
         onConnect(wsServer, client)
@@ -10,6 +14,7 @@ export function configureSocket(wsServer: WebSocket.Server) {
 
     wsServer.on('error', function(client: WebSocket, error: Error) {
         console.log(error.message)
+        console.error(error.message)
         console.log(error)
     })
 }
