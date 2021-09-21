@@ -1,7 +1,6 @@
 require('./repostory/internal/db/connection')
 require('./route/index')
 
-
 import { configureSocket } from './socket'
 import WebSocket from 'ws'
 

@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import { WatchlistEntity } from "./entity/watchlist_entity";
+import { StockEntity } from "./entity/stock_entity";
 import * as config from './.connection.config.json'
 
 export const sequelize: Sequelize = new Sequelize(config.dbName, config.dbUsername, config.dbPassword, {
@@ -8,6 +9,7 @@ export const sequelize: Sequelize = new Sequelize(config.dbName, config.dbUserna
 });
 
 WatchlistEntity.initEntity(sequelize)
+StockEntity.initEntity(sequelize)
 sequelize.sync();
 
 async function testConnection() {

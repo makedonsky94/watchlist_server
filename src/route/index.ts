@@ -2,6 +2,7 @@ import { app } from './express'
 import './../socket'
 
 import './rest/watchlist'
+import './rest/stock'
 
 
 app.set('views', __dirname + '/../view');

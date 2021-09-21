@@ -1,6 +1,5 @@
-import { TimePoint } from '../../../model/domain/time_point'
+import { Stock } from '../../../model/domain/stock'
 
-interface HistoryRepository {
-    getHistory(symbol: Symbol): Array<TimePoint>
-    getTimePoint(date: number, symbol: Symbol): TimePoint
+export interface HistoryRepository {
+    getHistory(symbolName: string): Promise<Stock[]>
 }
