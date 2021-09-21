@@ -1,12 +1,7 @@
 import WebSocket from 'ws';
 
-const wsServer = new WebSocket.Server({port: 9000});
 
-wsServer.on('connection', onConnect);
-
-
-
-function onConnect(client: WebSocket) {
+export function onConnect(wsServer: WebSocket.Server, client: WebSocket) {
     console.log('User connected')
     client.send('Connected')
     client.on('message', function(message) {

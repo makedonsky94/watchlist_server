@@ -1,15 +1,20 @@
 require('./repostory/internal/db/connection')
 require('./route/index')
 
+
+import { onConnect } from './socket'
+import WebSocket from 'ws'
+
 import { app } from './route/express'
 import https from 'https'
-import http from 'http'
+import http, { Server } from 'http'
+
 import * as sslConfig from './.ssl.config.json'
 import * as fs from 'fs'
 import * as path from 'path'
 
 
-
+let server: Server;
 if (sslConfig.ssl) {
   let options = {
     key: fs.readFileSync(path.resolve(sslConfig.path.key)),
@@ -17,13 +22,22 @@ if (sslConfig.ssl) {
     ca: fs.readFileSync(path.resolve(sslConfig.path.ca))
   }
 
-  const server = https.createServer(options, app)
+  server = https.createServer(options, app)
   server.listen(443, () => {
-    console.log('listening on *:443');
+    console.log('listening on *:443')
   })
+
 } else {
-  const server = http.createServer(app)
+  server = http.createServer(app)
   server.listen(80, () => {
-    console.log('listening on *:80');
+    console.log('listening on *:80')
   })
 }
+
+const wsServer = new WebSocket.Server({
+  port: 9000, server: server
+})
+
+wsServer.on('connection', function(socket: WebSocket) {
+  onConnect(wsServer, socket)
+})
