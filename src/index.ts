@@ -2,7 +2,7 @@ require('./repostory/internal/db/connection')
 require('./route/index')
 
 
-import { onConnect } from './socket'
+import { configureSocket } from './socket'
 import WebSocket from 'ws'
 
 import { app } from './route/express'
@@ -38,6 +38,4 @@ const wsServer = new WebSocket.Server({
   port: 9000, server: server
 })
 
-wsServer.on('connection', function(socket: WebSocket) {
-  onConnect(wsServer, socket)
-})
+configureSocket(wsServer)
