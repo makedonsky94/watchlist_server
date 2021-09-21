@@ -35,7 +35,7 @@ if (sslConfig.ssl) {
 }
 
 const wsServer = new WebSocket.Server({
-  port: 9000, server: server
+  server: server
 })
 
 configureSocket(wsServer)
