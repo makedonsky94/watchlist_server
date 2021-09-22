@@ -2,9 +2,12 @@ import { WatchlistRepository } from "../../repostory/public/watchlist/watchlist_
 import { WatchlistRepositoryImpl } from "../../repostory/internal/watchlist/watchlist_repository_impl";
 import { Response, Request } from "express";
 import { BaseController } from "../base_controller";
-import { Error } from "./../../model/domain/error";
+import { Error } from "../../model/output/error";
 
 export class WatchlistController implements BaseController {
+    /**
+     * /watchlists
+     */ 
     public static index(request: Request, response: Response) {
         response.format({
             'application/json': function() {
@@ -19,6 +22,9 @@ export class WatchlistController implements BaseController {
         })
     }
 
+    /**
+     * /watchlists/:id
+     */
     public static byId(request: Request, response: Response) {
         response.format({
             'application/json': function() {
