@@ -30,6 +30,11 @@ export class StockController implements BaseController {
 
                 const historyRepository: HistoryRepository = new HistoryRepositoryImpl()
                 historyRepository.getHistory(symbolName).then((history) => {
+                    if (history == null) {
+                        response.status(404).send(new Error("Not found any data"))
+                        return
+                    }
+
                     let stocks = history.stocks
                     let totalCount = history.historyCount
                     let count = stocks.length
