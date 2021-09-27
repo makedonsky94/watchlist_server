@@ -1,44 +1,98 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
-    <style>
-      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
-      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-      #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
-    </style>
+    <title>REST API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <div id="form">
-      <input id="input" autocomplete="off" />
-      <button id="button">{{ buttonText }}</button>
-    </div>
-    <script>
-      var exampleSocket = new WebSocket("ws://localhost:9000/");
-      exampleSocket.onmessage = function (event) {
-        const element = document.createElement("li")
-        element.innerText = event.data
+    <div class="container">
+      <div class="card">
+          <h5 class="card-header">Watchlist</h5>
+          <div class="card-body">
+            <h5 class="card-title">List of watchlists</h5>
+            <p class="card-text">Path: <kbd>/watchlists</kbd></p>
+            <p class="card-text">Method: <kbd>GET</kbd></p>
+            <p class="card-text">
+              <pre>
+[
+  {
+    "id": 1,
+    "name": "Main Watchlist",
+    "symbols": [
+      "AAPL",
+      "BTCUSD"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Another Watchlist",
+    "symbols": [
+      "AAPL",
+      "INTC",
+      "AMZN"
+    ]
+  }
+]
+              </pre>
+            </p>
+            <a href="/watchlists" class="btn btn-primary" target="_blank">Try out</a>
+          </div>
 
-        const list = document.getElementById("messages")
-        list.appendChild(element)
-        console.log(event);
-      }
-      exampleSocket.onclose = function (event) {
-        console.log(event);
-      }
-      document.getElementById("button").onclick = function() {
-        const input = document.getElementById("input")
-        exampleSocket.send(input.value)
-        input.value = ""
-      }
-    </script>
+          <hr />
+
+          <div class="card-body">
+            <h5 class="card-title">Get watchlist by id</h5>
+            <p class="card-text">Path: <kbd>/watchlists/:id</kbd></p>
+            <p class="card-text">Method: <kbd>GET</kbd></p>
+            <p class="card-text">
+              <pre>
+{
+  "id": 1,
+  "name": "Main Watchlist",
+  "symbols": [
+    "AAPL",
+    "BTCUSD"
+  ]
+}
+              </pre>
+            </p>
+            <a href="/watchlists/1" class="btn btn-primary" target="_blank">Try out</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h5 class="card-header">Stocks</h5>
+          <div class="card-body">
+            <h5 class="card-title">Intraday data of symbol</h5>
+            <p class="card-text">Path: <kbd>/stocks/intraday/:symbolName</kbd></p>
+            <p class="card-text">Method: <kbd>GET</kbd></p>
+            <p class="card-text">
+              <pre>
+{
+  "data": [
+    {
+      "symbol": "AAPL",
+      "open": 144.27,
+      "high": 144.6,
+      "low": 142.79,
+      "close": 142.94,
+      "last": 144.05,
+      "volume": 378444,
+      "date": "2021-09-21T16:00:00.000Z"
+    }
+  ],
+  "page": {
+    "count": 1,
+    "totalCount": 1000,
+    "offset": 0
+  }
+}
+              </pre>
+            </p>
+            <a href="/stocks/intraday/aapl" class="btn btn-primary" target="_blank">Try out</a>
+          </div>
+        </div>
+    </div>
   </body>
 </html>
