@@ -13,9 +13,9 @@ export class Stock {
         open: number, 
         high: number, 
         low: number, 
-        close: number, 
-        last: number, 
-        volume: number, 
+        close: number | null, 
+        last: number | null, 
+        volume: number | null, 
         date: Date
     ) {
         this.symbol = symbol
