@@ -7,9 +7,9 @@ interface StockAttributes {
     open: number
     high: number
     low: number
-    close: number
-    last: number
-    volume: number
+    close: number | null
+    last: number | null
+    volume: number | null
     date: Date
 }
 
@@ -20,9 +20,9 @@ export class StockEntity extends Model<StockAttributes> {
     public open!: number
     public high!: number
     public low!: number
-    public close!: number
-    public last!: number
-    public volume!: number
+    public close!: number | null
+    public last!: number | null
+    public volume!: number | null
     public date!: Date
 
     static initEntity(sequelize: Sequelize) {
