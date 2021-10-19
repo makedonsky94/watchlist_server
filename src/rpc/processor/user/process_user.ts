@@ -11,9 +11,9 @@ export interface ProcessUser {
 
     sendError(error: Error): void;
 
-    subscribeOnReceiveData(subscriber: (input: InputFrame) => void): void;
+    subscribeOnReceiveData(subscriber: (input: InputFrame | null) => void): void;
 
-    unsubscribeOnReceiveData(subscriber: (input: InputFrame) => void): void;
+    unsubscribeOnReceiveData(subscriber: (input: InputFrame | null) => void): void;
 
     isAlive(): boolean;
 }
