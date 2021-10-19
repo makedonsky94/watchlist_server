@@ -8,6 +8,8 @@ export interface ProcessUser {
 
     sendData(output: OutputFrame): void;
 
+    sendError(error: OutputFrame): void;
+
     subscribeOnReceiveData(subscriber: (input: InputFrame) => void): void;
 
     unsubscribeOnReceiveData(subscriber: (input: InputFrame) => void): void;
