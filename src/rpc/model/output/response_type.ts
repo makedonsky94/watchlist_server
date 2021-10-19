@@ -1,4 +1,4 @@
 export enum ResponseType {
-    Stock = "stock",
+    StockTick = "stock_tick",
     StockComplete = "stock_complete",
 }
