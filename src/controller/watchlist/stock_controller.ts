@@ -29,7 +29,7 @@ export class StockController implements BaseController {
                 }
 
                 const historyRepository: HistoryRepository = new HistoryRepositoryImpl()
-                historyRepository.getHistory(symbolName).then((history) => {
+                historyRepository.getHistory(symbolName, 100, offsetNumber).then((history) => {
                     if (history == null) {
                         response.status(404).send(new Error("Not found any data"))
                         return
