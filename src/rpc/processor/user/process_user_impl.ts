@@ -1,10 +1,11 @@
 import { InputFrame } from "../../model/input/input_frame";
 import { OutputFrame } from "../../model/output/output_frame";
 import { ProcessUser } from "./process_user";
-import WebSocket from 'ws';
 import { ResponseType } from "../../model/output/response_type";
 import { Error } from "../../model/output/error";
 import { Command } from "../../model/input/comand";
+
+import WebSocket from 'ws';
 
 export class ProcessUserImpl implements ProcessUser {
     public readonly id: string;
@@ -18,6 +19,12 @@ export class ProcessUserImpl implements ProcessUser {
         this.socket.onmessage = (message) => {
             this.subscribers.forEach((subscriber) => {
                 try {
+                    let json = JSON.parse(message.data as string);
+                    if (!json.command) {
+                        subscriber(null);
+                        return;
+                    }
+
                     let inputFrame = JSON.parse(message.data as string) as InputFrame;
                     subscriber(inputFrame);
                 } catch(e) {
