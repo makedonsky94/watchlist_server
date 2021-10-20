@@ -7,35 +7,45 @@ import { Error, ErrorReason } from "../model/output/error";
 import { PingPong } from "./ping_pong";
 
 export class StockProcessor {
+    private user: ProcessUser;
+    private pingPong: PingPong;
 
     constructor(user: ProcessUser) {
-        const pingPong = new PingPong(user);
+        this.user = user;
+        this.pingPong = new PingPong(user);
+        this.subscribeOnReceiveData();
+    }
 
-        user.subscribeOnReceiveData((inputFrame: InputFrame | null) => {
+    private subscribeOnReceiveData() {
+        this.user.subscribeOnReceiveData((inputFrame: InputFrame | null) => {
             if (inputFrame == null) {
                 let frame = new OutputFrame(ResponseType.Error, "Protocol error");
-                user.sendError(new Error(frame, ErrorReason.ProtocolError));
+                this.user.sendError(new Error(frame, ErrorReason.ProtocolError));
                 return;
             }
-            switch(inputFrame.command) {
-                case Command.Pong: {
-                    pingPong.onPong();
-                    break;
-                }
-                case Command.Ping: {
-                    pingPong.onPing();
-                    break;
-                }
-                case Command.SubscribeSymbols: {
-                    this.subscribeSymbols(inputFrame.payload as string[]);
-                    break;
-                }
-                case Command.UnsubscribeSymbols: {
-                    this.unsubscribeSymbols(inputFrame.payload as string[]);
-                    break;
-                }
+            this.obtainCommand(inputFrame);
+        });
+    }
+
+    private obtainCommand(inputFrame: InputFrame) {
+        switch(inputFrame.command) {
+            case Command.Pong: {
+                this.pingPong.onPong();
+                break;
             }
-        })
+            case Command.Ping: {
+                this.pingPong.onPing();
+                break;
+            }
+            case Command.SubscribeSymbols: {
+                this.subscribeSymbols(inputFrame.payload as string[]);
+                break;
+            }
+            case Command.UnsubscribeSymbols: {
+                this.unsubscribeSymbols(inputFrame.payload as string[]);
+                break;
+            }
+        }
     }
 
     private subscribeSymbols(symbols: string[]): void {
