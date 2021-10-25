@@ -93,6 +93,36 @@
             <a href="/stocks/intraday/aapl" class="btn btn-primary" target="_blank">Try out</a>
           </div>
         </div>
+
+        <div class="card">
+          <h5 class="card-header" id="realtime">RealTime data connection</h5>
+          <div class="card-body">
+            <h5 class="card-title">Stock session</h5>
+            <p class="card-text">URI: <kbd>wss://alex9.fvds.ru/</kbd></p>
+            <p class="card-text">Port: <kbd>443</kbd></p>
+
+            <h5 class="card-title">[Command] Subscribe to updates</h5>
+            <p class="card-text">
+              <kbd>{"command": "subscribe_symbols", "payload": ["AAPL", "MSFT"]}</kbd>
+            </p>
+            <h5 class="card-title">[Command] Unsubscribe to updates</h5>
+            <p class="card-text">
+              <kbd>{"command": "unsubscribe_symbols", "payload": ["AAPL", "MSFT"]}</kbd>
+            </p>
+
+            <h5 class="card-title">[Response] Stock tick</h5>
+            <p class="card-text">
+              <kbd>{"type":"stock_tick", "data":{"symbol":"MSFT", "price":286.335, "description":"Test description", "icon":"test_icon"}}</kbd>
+            </p>
+            <div class="alert alert-danger" role="alert">
+              Caution! The data could be sent partially.
+            </div>
+            <h5 class="card-title">[Response] Error</h5>
+            <p class="card-text">
+              <kbd>{"type":"error", "data":"Protocol error"}</kbd>
+            </p>
+          </div>
+        </div>
     </div>
   </body>
 </html>
