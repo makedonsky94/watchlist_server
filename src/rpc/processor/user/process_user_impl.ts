@@ -28,6 +28,7 @@ export class ProcessUserImpl implements ProcessUser {
                     let inputFrame = JSON.parse(message.data as string) as InputFrame;
                     subscriber(inputFrame);
                 } catch(e) {
+                    console.error(e);
                     subscriber(null);
                 }
             })
