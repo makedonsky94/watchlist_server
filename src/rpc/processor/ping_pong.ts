@@ -7,7 +7,7 @@ export class PingPong {
     private subscriber: (event: PingPongEvent) => void;
 
     constructor(subscriber: (event: PingPongEvent) => void) {
-        this.schedulePing();
+        //this.schedulePing();
         this.subscriber = subscriber;
     }
 
